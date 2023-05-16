@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/flat_page.css') }}" />
+    <title>Квартира</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='dove.png') }}" alt="logo" class="img-logo">
+        </div>
+        <nav id="nav">
+            <ul id="nav-ul">
+                <li id="nav-li"><a href="#">
+                        <p id="nav-li-active">Главная</p>
+                    </a></li>
+                <li id="nav-li"><a href="#">
+                        <p>Лучшее</p>
+                    </a></li>
+                <li id="nav-li"><a href="save">
+                        <p>Сохраненное</p>
+                    </a></li>
+                <li id="nav-li"><a href="#">
+                        <p>О нас</p>
+                    </a></li>
+            </ul>
+        </nav>
+        <div class="registration">
+            Регистрация
+        </div>
+    </header>
+    <main>
+        <div class="image-container">
+            <img class="image-container-img"
+                src="https://www.srijanrealty.com/wp-content/uploads/2022/07/3-bhk-flat-in-kolkata.png" alt="main">
+            <div class="info-block">
+                <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_730/at%2Fhouse%20tours%2F2021-03%2FMaria%20H%2FApartment_Therapy_-_Maria_-_March_12_202176480"
+                    alt="flat">
+                <div class="title">
+                    <p>Посмотреть все 16 фотографий</p>
+                </div>
+                <div class="dark-block"></div>
+            </div>
+            <h2 сlass="image-container-room">Зал</h2>
+        </div>
+        <div class="description-container">
+            <div class="description-container-text">
+                <h3>Уютная квартира для питья какао вечерком</h3>
+                <div>
+                    <img class="description-container-map_point" src="{{ url_for("static", filename="placeholder.png"
+                        )}}" alt="map">
+                    <p>Город Морковный. Улица Свекольная, дом 555, квартира 444.</p>
+                </div>
+                <p class="description-container-text-words"> <b>Описание: </b>В продаже квартира с 1 спальней площадью
+                    42.80 кв. м на 2 этаже в жилом комплексе премиум-класса
+                    River Park Towers Кутузовский в Башне Amber Tower.
+                    River Park Towers Кутузовский строящийся жилой комплекс небоскребов премиум-класса на берегу
+                    Москвы-реки, с потрясающими видами на Москва-Сити и Парк Победы.
+                </p>
+                <div class="description-container-text-gallery">
+                    <img src="https://assets.architecturaldigest.in/photos/600845f5e6e1f64740189662/4:3/w_1024,h_768,c_limit/Mumbai-2-BHK-Limehouse-Design-Studio-1366x768.jpg"
+                        alt="photo1">
+                    <img src="https://psgroup.in/blog/wp-content/uploads/2022/08/10-tendencias-de-interiores-que-serao-destaque-da-decada.jpg"
+                        alt="photo2">
+                    <img src="https://assets.architecturaldigest.in/photos/600845f5e6e1f64740189662/4:3/w_1024,h_768,c_limit/Mumbai-2-BHK-Limehouse-Design-Studio-1366x768.jpg"
+                        alt="photo3">
+                </div>
+            </div>
+            <div class="description-container-pricebox">
+                <p class="description-container-pricebox-base">Основная информация</p>
+                <h5><b>Владелец:</b> Агентство недвижимости</h5>
+                <div class="description-container-pricebox-data">
+                    <div class="description-container-pricebox-data-box">
+                        <img src="{{ url_for('static', filename='bed.png') }}" alt="icon">
+                        <h3>4</h3>
+                    </div>
+                    <div class="description-container-pricebox-data-box">
+                        <img src="{{ url_for('static', filename='elevator.png') }}" alt="icon">
+                        <h3>17</h3>
+                    </div>
+                    <div class="description-container-pricebox-data-box">
+                        <img src="{{ url_for('static', filename='bath-tub.png') }}" alt="icon">
+                        <h3>2</h3>
+                    </div>
+                    <div class="description-container-pricebox-data-box">
+                        <img src="{{ url_for('static', filename='plans.png') }}" alt="icon">
+                        <h3>130</h3>
+                    </div>
+                </div>
+                <h5 class="description-container-pricebox-price-head">Стоимость: </h5>
+                <div class="description-container-pricebox-price_block">
+                    <h3 class="description-container-pricebox-price">3 000 000 </h3>
+                    <p>рублей</p>
+                </div>
+                <button class='glowing-btn'><span class='glowing-txt'>Показать контакты</span></button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

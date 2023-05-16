@@ -62,3 +62,83 @@ header {
   border-radius: 40px;
   padding: 1rem;
 }
+
+.main_title {
+  font-size: 4rem;
+}
+
+.main_block {
+  backdrop-filter: blur(10px);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 70px;
+  /* border-left: .5px solid rgba(255, 255, 255, 0.175);
+  border-right: .5px solid rgba(255, 255, 255, 0.267); */
+}
+
+.flat_card {
+  border-radius: 30px;
+  backdrop-filter: blur(14px);
+  padding: 10px;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  border: 0.2rem solid #fff;
+  border-radius: 2rem;
+  padding: 0.4em;
+  box-shadow: 0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 2rem hsl(19, 100%, 69%),
+    0 0 0.8rem hsl(19, 100%, 69%),
+    0 0 2.8rem hsl(19, 100%, 69%),
+    inset 0 0 1.3rem hsl(19, 100%, 69%);
+
+}
+
+
+@keyframes pulsate {
+
+  100% {
+
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #bc13fe,
+      0 0 80px #bc13fe,
+      0 0 90px #bc13fe,
+      0 0 100px #bc13fe,
+      0 0 150px #bc13fe;
+
+  }
+
+  0% {
+
+    text-shadow:
+      0 0 2px #fff,
+      0 0 4px #fff,
+      0 0 6px #fff,
+      0 0 10px #bc13fe,
+      0 0 45px #bc13fe,
+      0 0 55px #bc13fe,
+      0 0 70px #bc13fe,
+      0 0 80px #bc13fe;
+  }
+}
+
+.flat_card_description {
+  margin-left: 3rem;
+}
+
+.flat_card a {
+  text-decoration: none;
+  color: white;
+}
+
+.flat_card img {
+  width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+  height: 300px;
+  border-radius: 20px;
+  margin-left: 1rem;
+}

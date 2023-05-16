@@ -19,6 +19,18 @@ def index():
     else:
         return render_template("index.html")
 
+@app.route('/saved')
+def saved():
+    return render_template("saved.html")
+
+
+@app.route('/settings')
+def set_filters():
+    return render_template("filter_page.html")
+
+@app.route('/dream_flat')
+def flat_page():
+    return render_template("flat_page.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
