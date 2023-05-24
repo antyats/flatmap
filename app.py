@@ -34,7 +34,7 @@ def main():
             "location") != "" else ""
 
         flats = []
-        for i in range(1, 5):
+        for i in range(1):
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
             flats += find_flats_cian(url_cian)
 
