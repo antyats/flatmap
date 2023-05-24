@@ -128,6 +128,7 @@ header {
 
 .flat_card_description {
   margin-left: 3rem;
+  width: 35rem;
 }
 
 .flat_card a {
@@ -141,4 +142,65 @@ header {
   height: 300px;
   border-radius: 20px;
   margin-left: 1rem;
+}
+
+
+.like {
+  position: relative;
+  /*right: 3rem;*/
+  /*left: 6;*/
+  width: 200px;
+  /*color: white;*/
+  /*width: 5rem;*/
+  border-radius: 10px;
+  border-left-color: white;
+  margin-right: 0.1rem;
+  /*margin-left: 25rem;*/
+
+
+  /*padding-left: 80%;*/
+  /*padding-right: 10%;*/
+  height: 102%;
+  /*width: 15%;*/
+  border-width: 0 0 0 100px;
+  /*background-color: #6EB54E;*/
+}
+
+.heart_svg {
+  position: relative;
+  top: 35%;
+  margin-left: 20%;
+  cursor: pointer;
+  fill: white;
+}
+
+.heart_svg:hover {
+  fill: rgb(232, 98, 118);
+  stroke: rgb(232, 98, 118);
+}
+
+.heart_svg.clicked {
+  fill: rgb(232, 98, 118);
+}
+
+.reg-btn {
+  /*margin-top: 0.7rem;*/
+  position: relative;
+
+  /*color: var(--glow-color);*/
+  cursor: pointer;
+  padding: 0.15em 0.25em;
+  /*border: 0.05em solid var(--glow-color);*/
+  /*border-radius: 0.45em;*/
+  background: none;
+  /*!*perspective: 0.15em;*!*/
+  font-family: "Raleway", sans-serif;
+  font-size: 1.4em;
+  font-weight: 500;
+  /*letter-spacing: 0.2em;*/
+  color: #ffffff;
+
+  border: solid white 2px;
+  border-radius: 40px;
+  padding: 1rem;
 }
