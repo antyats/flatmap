@@ -41,10 +41,24 @@
             <div class="flat_card">
                 <img src="{{ flat.photos[0] }}" alt="flat">
                 <div class="flat_card_description">
-                    <a href="{{ flat.link }}">
-                        <h1>{{ flat.name }}</h1>
-                    </a>
-                    <h3>{{ flat.price }}</h3>    
+                    <form action="{{ url_for('flatpage') }}" method="post" id="form-{{flat.index}}">
+                        <input type="hidden" name="name" value="{{ flat.name }}">
+                        <input type="hidden" name="price" value="{{ flat.price }}">
+                        <input type="hidden" name="description" value="{{ flat.description }}">
+                        <input type="hidden" name="rooms" value="{{ flat.rooms }}">
+                        <input type="hidden" name="space" value="{{ flat.space }}">
+                        <input type="hidden" name="floor" value="{{ flat.floor }}">
+
+                        {% for photo in flat.photos %}
+                        <input type="hidden" name="photos[]" value="{{ photo }}">
+                        {% endfor %}
+
+                        <button type="button" onclick="submitForm({{ flat.index }})">
+                            <h1>{{ flat.name }}</h1>
+                        </button>
+                        </a>
+                        <h3>{{ flat.price }}</h3>
+                    </form>
                 </div>
             </div>
             {% endfor %}
@@ -53,3 +67,10 @@
 </body>
 
 </html>
+
+<script>
+    function submitForm(formId) {
+        let form = document.getElementById('form-' + formId);
+        form.submit();
+    }
+</script>

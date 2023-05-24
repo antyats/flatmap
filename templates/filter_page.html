@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/filter.css') }}" />
     <title>Выбирайте</title>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -35,7 +34,7 @@
         </div>
     </header>
     <main>
-        <form class="form_container" action="/" method="POST">
+        <form class="form_container" action="/filters" method="POST">
             <div class="form_container_item">
                 <h1 class="form_container_item-title">Сколько комнат: </h1>
                 <div class="form_container_item-rooms">
@@ -60,19 +59,18 @@
             <div class="form_container_item">
                 <h1 class="form_container_item-title">Цена: </h1>
                 <div class="form_container_item-price">
-                    <input type="text" class="glowing-btn glow-form" placeholder="от">
-                    <input type="text" class="glowing-btn glow-form" placeholder="до">
+                    <input type="text" class="glowing-btn glow-form" name="min_price" placeholder="от">
+                    <input type="text" class="glowing-btn glow-form" name="max_price" placeholder="до">
                 </div>
             </div>
             <div class="form_container_item">
                 <h1 class="form_container_item-title">Где: </h1>
                 <div class="form_container_item-place">
-                    <input type="text" class="glowing-btn glow-form glow-form-search" placeholder="Город, район">
+                    <input type="text" name="location" class="glowing-btn glow-form glow-form-search" placeholder="Город, район">
                 </div>
             </div>
-            <button class="glowing-btn glow-btn">ПОЕХАЛИ</button>
+            <button class="glowing-btn glow-btn" type="submit">ПОЕХАЛИ</button>
         </form>
     </main>
 </body>
-
 </html>
