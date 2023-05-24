@@ -1,4 +1,7 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session, abort
+from authlib.integrations.flask_client import OAuth
+from bs4 import BeautifulSoup
+import requests
 from constants import CITIES
 from parsers import find_flats_cian
 
@@ -9,6 +12,46 @@ CITIESMAIN = {}
 for city, num in CITIES:
     CITIESMAIN[city] = num
 
+appConf = {
+    "OAUTH2_CLIENT_ID": "1006174737288-392dr3qihp0l067sielgm0afbdi3iejm.apps.googleusercontent.com",
+    "OAUTH2_CLIENT_SECRET": "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",
+    "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
+    "FLASK_SECRET": "ef2f1148-c3fb-44d9-ac15-8e168782e497",
+    "FLASK_PORT": 5000
+}
+
+app.secret_key = appConf.get("FLASK_SECRET")
+
+oauth = OAuth(app)
+
+oauth.register(
+    "FlatMap",
+    client_id=appConf.get("OAUTH2_CLIENT_ID"),
+    client_secret=appConf.get("OAUTH2_CLIENT_SECRET"),
+    client_kwargs={
+        "scope": "openid profile email"},
+    server_metadata_url=f'{appConf.get("OAUTH2_META_URL")}',
+
+)
+
+@app.route("/google-login")
+def googleLogin():
+    if "user" in session:
+        abort(404)
+    return oauth.FlatMap.authorize_redirect(redirect_uri=url_for("googleCallback", _external=True))
+
+
+@app.route("/signin-google")
+def googleCallback():
+    token = oauth.FlatMap.authorize_access_token()
+    session["user"] = token
+    return redirect(url_for("registration"))
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect(url_for("registration"))
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -50,6 +93,13 @@ def main():
 def saved():
     return render_template("saved.html")
 
+@app.route('/about_us')
+def about_us():
+    return render_template("about_us.html")
+
+@app.route('/login')
+def registration():
+    return render_template("registration.html", session=session.get("user"))
 
 @app.route('/dreamflat', methods=['POST'])
 def flatpage():

@@ -494,3 +494,18 @@ header {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.reg-btn {
+  position: relative;
+  cursor: pointer;
+  padding: 0.15em 0.25em;
+  background: none;
+  /*!*perspective: 0.15em;*!*/
+  font-family: "Raleway", sans-serif;
+  font-size: 1.4em;
+  font-weight: 500;
+  color: #ffffff;
+
+  border: solid white 2px;
+  border-radius: 40px;
+  padding: 1rem;
+}
