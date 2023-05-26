@@ -1,14 +1,11 @@
 from flask import Flask, render_template, url_for, request, redirect, session, abort
 from authlib.integrations.flask_client import OAuth
-from bs4 import BeautifulSoup
-import requests
 from constants import CITIES
-from parsers import find_flats_cian
+from parsers import find_flats_cian, find_flats
 
 app = Flask(__name__)
 
 TOKEN = '9c44622b22e82c8fff6a2661c09cdb0b'
-
 
 CITIESMAIN = {}
 
@@ -37,6 +34,7 @@ oauth.register(
 
 )
 
+
 @app.route("/google-login")
 def googleLogin():
     if "user" in session:
@@ -56,6 +54,7 @@ def logout():
     session.pop("user", None)
     return redirect(url_for("registration"))
 
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
@@ -74,7 +73,7 @@ def main():
         min_price = int(request.form.get("min_price")
                         ) if request.form.get("min_price") != "" else 0
         max_price = int(request.form.get("max_price")) if request.form.get(
-            "max_price") != "" else "inf"
+            "max_price") != "" else "1000000000"
 
         city = CITIESMAIN[request.form.get("location")] if request.form.get(
             "location") != "" else ""
@@ -84,6 +83,7 @@ def main():
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
             url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&&category_id=2&param[2019]={max([one_room, two_rooms, three_rooms, four_rooms])}"
             flats += find_flats_cian(url_cian)
+            flats += find_flats(url_other)
 
         flats.sort(key=lambda x: x['model_prediction'], reverse=True)
 
@@ -97,13 +97,16 @@ def main():
 def saved():
     return render_template("saved.html")
 
+
 @app.route('/about_us')
 def about_us():
     return render_template("about_us.html")
 
+
 @app.route('/login')
 def registration():
     return render_template("registration.html", session=session.get("user"))
+
 
 @app.route('/dreamflat', methods=['POST'])
 def flatpage():

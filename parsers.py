@@ -13,7 +13,6 @@ with open('model.pickle', 'rb') as f:
 
 
 def find_flats_cian(url):
-
     flats = []
 
     cian_html = requests.get(url).text
@@ -97,6 +96,7 @@ def find_flats_cian(url):
 
     return flats
 
+
 def find_flats(url):
     script = requests.get(url)
     script = script.text
@@ -104,9 +104,11 @@ def find_flats(url):
     flats = []
     for offer in data["data"]:
         photos = list(map(lambda x: list(x.values())[0], offer["images"]))
-        main_img = np.asarray(Image.open(requests.get(
-            list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
-
+        try:
+            main_img = np.asarray(
+                Image.open(requests.get(list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
+        except:
+            continue
         model_prediction = model.predict(main_img)
         flats.append({"photos": photos,
                       "name": offer['title'],
