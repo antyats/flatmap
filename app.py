@@ -7,6 +7,9 @@ from parsers import find_flats_cian
 
 app = Flask(__name__)
 
+TOKEN = '9c44622b22e82c8fff6a2661c09cdb0b'
+
+
 CITIESMAIN = {}
 
 for city, num in CITIES:
@@ -79,6 +82,7 @@ def main():
         flats = []
         for i in range(1):
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
+            url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&&category_id=2&param[2019]={max([one_room, two_rooms, three_rooms, four_rooms])}"
             flats += find_flats_cian(url_cian)
 
         flats.sort(key=lambda x: x['model_prediction'], reverse=True)

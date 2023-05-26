@@ -4,6 +4,7 @@ from PIL import Image
 import pickle
 import numpy as np
 from helpers import find_substring, find_first_digit
+import json
 
 model = None
 # Загрузка модели из файла
@@ -96,14 +97,25 @@ def find_flats_cian(url):
 
     return flats
 
+def find_flats(url):
+    script = requests.get(url)
+    script = script.text
+    data = json.loads(script)
+    flats = []
+    for offer in data["data"]:
+        photos = list(map(lambda x: list(x.values())[0], offer["images"]))
+        main_img = np.asarray(Image.open(requests.get(
+            list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
 
-def find_flats_yandex():
-    pass
-
-
-def find_flats_avito():
-    pass
-
-
-def find_flats_domru():
-    pass
+        model_prediction = model.predict(main_img)
+        flats.append({"photos": photos,
+                      "name": offer['title'],
+                      "price": offer['price'],
+                      "link": offer['url'],
+                      "description": offer['description'],
+                      "floor": offer['params']['Этаж'],
+                      "space": offer['params']['Площадь'],
+                      "rooms": offer['params']['Количество комнат'],
+                      "model_prediction": model_prediction
+                      })
+    return flats
