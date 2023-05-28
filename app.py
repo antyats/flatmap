@@ -1,24 +1,16 @@
-from flask import Flask, render_template, url_for, request, redirect, session, abort
+from flask import Flask, render_template, url_for, request, redirect, session, abort, jsonify
 from authlib.integrations.flask_client import OAuth
 from constants import CITIES
 from parsers import find_flats_cian, find_flats
+from auth import appConf, TOKEN
+from firebase import add_liked_to_database, get_liked_from_database
 
 app = Flask(__name__)
-
-TOKEN = '9c44622b22e82c8fff6a2661c09cdb0b'
 
 CITIESMAIN = {}
 
 for city, num in CITIES:
     CITIESMAIN[city] = num
-
-appConf = {
-    "OAUTH2_CLIENT_ID": "1006174737288-392dr3qihp0l067sielgm0afbdi3iejm.apps.googleusercontent.com",
-    "OAUTH2_CLIENT_SECRET": "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",
-    "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
-    "FLASK_SECRET": "ef2f1148-c3fb-44d9-ac15-8e168782e497",
-    "FLASK_PORT": 5000
-}
 
 app.secret_key = appConf.get("FLASK_SECRET")
 
@@ -31,15 +23,7 @@ oauth.register(
     client_kwargs={
         "scope": "openid profile email"},
     server_metadata_url=f'{appConf.get("OAUTH2_META_URL")}',
-
 )
-
-
-@app.route("/google-login")
-def googleLogin():
-    if "user" in session:
-        abort(404)
-    return oauth.FlatMap.authorize_redirect(redirect_uri=url_for("googleCallback", _external=True))
 
 
 @app.route("/signin-google")
@@ -47,6 +31,13 @@ def googleCallback():
     token = oauth.FlatMap.authorize_access_token()
     session["user"] = token
     return redirect(url_for("registration"))
+
+
+@app.route("/google-login")
+def googleLogin():
+    if "user" in session:
+        abort(404)
+    return oauth.FlatMap.authorize_redirect(redirect_uri=url_for("googleCallback", _external=True))
 
 
 @app.route("/logout")
@@ -81,9 +72,9 @@ def main():
         flats = []
         for i in range(1):
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
-            url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&&category_id=2&param[2019]={max([one_room, two_rooms, three_rooms, four_rooms])}"
+            # url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&&category_id=2&param[2019]={max([one_room, two_rooms, three_rooms, four_rooms])}"
             flats += find_flats_cian(url_cian)
-            flats += find_flats(url_other)
+            # flats += find_flats(url_other)
 
         flats.sort(key=lambda x: x['model_prediction'], reverse=True)
 
@@ -93,21 +84,6 @@ def main():
         return render_template("filter_page.html")
 
 
-@app.route('/saved')
-def saved():
-    return render_template("saved.html")
-
-
-@app.route('/about_us')
-def about_us():
-    return render_template("about_us.html")
-
-
-@app.route('/login')
-def registration():
-    return render_template("registration.html", session=session.get("user"))
-
-
 @app.route('/dreamflat', methods=['POST'])
 def flatpage():
     name = request.form['name']
@@ -115,6 +91,36 @@ def flatpage():
     photos = request.form.getlist('photos[]')
     description = request.form['description']
     return render_template('flat_page.html', name=name, price=price, description=description, photos=photos)
+
+
+@app.route('/save', methods=['POST'])
+def save():
+    user_email = session.get('user').get('userinfo').get('email')
+
+    name = request.form.get('name')
+    price = request.form.get('price')
+    description = request.form.get('description')
+    photos = request.form.getlist('photos[]')
+    result = add_liked_to_database(user_email, {
+                                   "name": name, "price": price, "description": description, "photos": photos})
+    return jsonify(result="Success")
+
+
+@app.route('/login')
+def registration():
+    return render_template("registration.html", session=session.get("user"))
+
+
+@app.route('/saved_flats')
+def saved():
+    user_email = session.get('user').get('userinfo').get('email')
+    flats = get_liked_from_database(user_email)
+    return render_template("saved_flats.html", flats=flats)
+
+
+@app.route('/about_us')
+def about_us():
+    return render_template("about_us.html")
 
 
 if __name__ == "__main__":
