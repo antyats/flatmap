@@ -90,7 +90,10 @@ def flatpage():
     price = request.form['price']
     photos = request.form.getlist('photos[]')
     description = request.form['description']
-    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos)
+    rooms = request.form['rooms']
+    space = request.form['space']
+    floor = request.form['floor']
+    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor)
 
 
 @app.route('/save', methods=['POST'])
