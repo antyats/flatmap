@@ -16,37 +16,37 @@
         </div>
         <nav id="nav">
             <ul id="nav-ul">
-                <li id="nav-li"><a href="#">
+                <li id="nav-li"><a href="/">
                         <p id="nav-li-active">Главная</p>
                     </a></li>
                 <li id="nav-li"><a href="#">
                         <p>Лучшее</p>
                     </a></li>
-                <li id="nav-li"><a href="save">
+                <li id="nav-li"><a href="saved_flats">
                         <p>Сохраненное</p>
                     </a></li>
-                <li id="nav-li"><a href="#">
+                <li id="nav-li"><a href="about_us">
                         <p>О нас</p>
                     </a></li>
             </ul>
         </nav>
-        <div class="registration">
-            Регистрация
-        </div>
+        <a href=login>
+            <button class="reg-btn">Регистрация</button>
+        </a>
     </header>
     <main>
         <div class="image-container">
             <img class="image-container-img"
                 src="{{ photos[0] }}" alt="main">
-            <div class="info-block">
-                <img src="{{ photos[2] }}"
-                    alt="flat">
-                <div class="title">
-                    <p>Посмотреть все 16 фотографий</p>
-                </div>
-                <div class="dark-block"></div>
-            </div>
-            <h2 сlass="image-container-room">Зал</h2>
+{#            <div class="info-block">#}
+{#                <img src="{{ photos[2] }}"#}
+{#                    alt="flat">#}
+{#                <div class="title">#}
+{#                    <p>Посмотреть все 16 фотографий</p>#}
+{#                </div>#}
+{#                <div class="dark-block"></div>#}
+{#            </div>#}
+            <h2 сlass="image-container-room"></h2>
         </div>
         <div class="description-container">
             <div class="description-container-text">
@@ -63,9 +63,9 @@
                     <img src="{{ photos[0] }}"
                         alt="photo1">
                     <img src="{{ photos[1] }}"
-                        alt="photo2">
+                        alt="">
                     <img src=" {{ photos[2] }}"
-                        alt="photo3">
+                        alt="">
                 </div>
             </div>
             <div class="description-container-pricebox">
@@ -74,7 +74,7 @@
                 <div class="description-container-pricebox-data">
                     <div class="description-container-pricebox-data-box">
                         <img src="{{ url_for('static', filename='bed.png') }}" alt="icon">
-                        <h3>{{ rooms }}</h3>
+                        <h3>{{ rooms[0] }}</h3>
                     </div>
                     <div class="description-container-pricebox-data-box">
                         <img src="{{ url_for('static', filename='elevator.png') }}" alt="icon">
@@ -94,7 +94,7 @@
                     <h3 class="description-container-pricebox-price">{{ price }}</h3>
                     <p>рублей</p>
                 </div>
-                <button class='glowing-btn'><span class='glowing-txt'>Показать контакты</span></button>
+                <button class='glowing-btn'><span class='glowing-txt'> <a href= {{ link }} target="_blank"> Показать контакты</a></span></button>
             </div>
         </div>
     </main>

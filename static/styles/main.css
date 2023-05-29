@@ -215,6 +215,7 @@ header {
 
 
 .image-container {
+
   margin-top: 6rem;
   background-size: cover;
   height: 35rem;
@@ -223,6 +224,7 @@ header {
 }
 
 .image-container-img {
+  margin-top: -8%;
   position: relative;
   width: 100%;
   height: 100%;
@@ -230,6 +232,7 @@ header {
 }
 
 .info-block {
+  margin-top: -8%;
   position: absolute;
   top: 20px;
   right: 20px;
@@ -494,10 +497,10 @@ header {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .reg-btn {
   position: relative;
   cursor: pointer;
-  padding: 0.15em 0.25em;
   background: none;
   /*!*perspective: 0.15em;*!*/
   font-family: "Raleway", sans-serif;
