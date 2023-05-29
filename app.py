@@ -125,7 +125,7 @@ def registration():
 def saved():
     user_email = session.get('user').get('userinfo').get('email')
     flats = get_liked_from_database(user_email)
-    return render_template("saved_flats.html", flats=flats)
+    return render_template("saved_flats.html", flats=flats[0])
 
 
 @app.route('/about_us')

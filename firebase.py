@@ -13,10 +13,14 @@ def add_liked_to_database(userid, liked_info):
 
     if doc.exists:
         for key in doc.to_dict():
-            info_list = doc.to_dict().get(key)
+            info_list.append(doc.to_dict().get(key))
     else:
         data = {'liked_list' : []}
         doc_ref.set(data)
+
+    info_list.pop()
+    info_list = info_list[0]
+    print(info_list)
 
     # Добавьте новые данные в массив
     info_list.append(liked_info)
@@ -33,6 +37,7 @@ def get_liked_from_database(userid):
 
     flats = []
     for key in doc.to_dict():
-        flats = doc.to_dict().get(key)
+        flats.append(doc.to_dict().get(key))
+    flats.pop()
 
     return flats
