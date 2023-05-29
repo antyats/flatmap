@@ -27,12 +27,19 @@ def add_liked_to_database(userid, liked_info):
     print("Succesfully added")
     return
 
+def remove_liked_from_database(userid, liked_info):
+    
+
 def get_liked_from_database(userid):
     doc_ref = db.collection('users').document(userid)
     doc = doc_ref.get()
-
-    flats = []
-    for key in doc.to_dict():
-        flats = doc.to_dict().get(key)
-
-    return flats
+    
+    if doc.exists:
+        flats = []
+        for key in doc.to_dict():
+            flats = doc.to_dict().get(key)
+            return flats
+    else:
+        data = {'liked_list' : []}
+        doc_ref.set(data)
+        return []
