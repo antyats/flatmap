@@ -6,6 +6,7 @@ import numpy as np
 from helpers import find_substring, find_first_digit
 import json
 import random
+import re
 
 model = None
 # Загрузка модели из файла
@@ -13,6 +14,8 @@ with open('model.pickle', 'rb') as f:
     model = pickle.load(f)
 
 i = 0
+
+
 def find_flats_cian(url):
     global i
     flats = []
@@ -109,16 +112,13 @@ def find_flats(url):
     flats = []
     for offer in data["data"]:
         photos = list(map(lambda x: list(x.values())[0], offer["images"]))
-        try:
-            main_img = np.asarray(
-                Image.open(requests.get(list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
-        except:
-            continue
+        # main_img = np.asarray(
+        #     Image.open(requests.get(list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
         # model_prediction = model.predict(main_img)
         flats.append({
             "address": offer['address'], "photos": photos,
             "name": offer['title'],
-            "price": offer['price'],
+            "price": re.sub(r'(-?)(\d\d\d)', r'\2 ', str(offer['price'])[::-1])[::-1] + "₽",
             "link": offer['url'],
             "description": offer['description'],
             "floor": offer['params']['Этаж'],
