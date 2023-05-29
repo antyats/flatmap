@@ -70,11 +70,16 @@ def main():
             "location") != "" else ""
 
         flats = []
+        rooms = [one_room, two_rooms, three_rooms, four_rooms]
+        r = []
+        for i, room in enumerate(rooms):
+            if room:
+                r.append(i + 1)
         for i in range(1):
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
-            # url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&&category_id=2&param[2019]={max([one_room, two_rooms, three_rooms, four_rooms])}"
+            url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&category_id=2&param[1943]=Продам&param[1945]={max(r)}"
             flats += find_flats_cian(url_cian)
-            # flats += find_flats(url_other)
+            flats += find_flats(url_other)
 
         flats.sort(key=lambda x: x['model_prediction'], reverse=True)
 

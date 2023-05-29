@@ -79,6 +79,7 @@ def find_flats_cian(url):
                 if '/cat.php?' not in a['href']:
                     flats.append(
                         {
+                            "address": 'хуй',
                             "photos": list(flat_imgs),
                             "name": flat_name,
                             "price": flat_price,
@@ -110,14 +111,15 @@ def find_flats(url):
         except:
             continue
         model_prediction = model.predict(main_img)
-        flats.append({"photos": photos,
-                      "name": offer['title'],
-                      "price": offer['price'],
-                      "link": offer['url'],
-                      "description": offer['description'],
-                      "floor": offer['params']['Этаж'],
-                      "space": offer['params']['Площадь'],
-                      "rooms": offer['params']['Количество комнат'],
-                      "model_prediction": model_prediction
-                      })
+        flats.append({
+            "address": offer['address'], "photos": photos,
+            "name": offer['title'],
+            "price": offer['price'],
+            "link": offer['url'],
+            "description": offer['description'],
+            "floor": offer['params']['Этаж'],
+            "space": offer['params']['Площадь'],
+            "rooms": offer['params']['Количество комнат'],
+            "model_prediction": model_prediction
+        })
     return flats
