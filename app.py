@@ -98,7 +98,8 @@ def flatpage():
     rooms = request.form['rooms']
     space = request.form['space']
     floor = request.form['floor']
-    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor)
+    link = request.form['link']
+    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor, link=link)
 
 
 @app.route('/save', methods=['POST'])
@@ -117,6 +118,14 @@ def save():
 @app.route('/login')
 def registration():
     return render_template("registration.html", session=session.get("user"))
+
+# @app.route('/save')
+# def saved():
+#     return render_template("saved_flats.html")
+
+@app.route('/about_us')
+def info():
+    return render_template("about_us.html")
 
 
 @app.route('/saved_flats')
