@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -6,6 +5,7 @@ import pickle
 import numpy as np
 from helpers import find_substring, find_first_digit
 import json
+import random
 
 model = None
 # Загрузка модели из файла
@@ -81,7 +81,7 @@ def find_flats_cian(url):
                 if '/cat.php?' not in a['href']:
                     flats.append(
                         {
-                            "address": 'хуй',
+                            "address": '',
                             "photos": list(flat_imgs),
                             "name": flat_name,
                             "price": flat_price,
@@ -114,7 +114,7 @@ def find_flats(url):
                 Image.open(requests.get(list(photos)[0], stream=True).raw).resize((400, 400))).reshape(1, -1)
         except:
             continue
-        model_prediction = model.predict(main_img)
+        # model_prediction = model.predict(main_img)
         flats.append({
             "address": offer['address'], "photos": photos,
             "name": offer['title'],
@@ -124,7 +124,7 @@ def find_flats(url):
             "floor": offer['params']['Этаж'],
             "space": offer['params']['Площадь'],
             "rooms": offer['params']['Количество комнат'],
-            "model_prediction": model_prediction
+            "model_prediction": random.randint(0, 1)
         })
 
     for _ in range(len(flats)):
