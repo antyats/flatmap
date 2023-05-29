@@ -128,8 +128,11 @@ def save():
     photos = request.form.getlist('photos[]')
     index = request.form.get('index')
     link = request.form.get('link')
+    rooms = request.form.get('rooms')
+    space = request.form.get('space')
+    floor = request.form.get('floor')
     result = add_liked_to_database(user_email, {
-                                   "name": name, "price": price, "description": description, "photos": photos, "index": index, "link": link})
+                                   "name": name, "price": price, "description": description, "photos": photos, "index": index, "link": link, "rooms": rooms, "floor": floor, "space": space })
     return jsonify(result="Success")
 
 
