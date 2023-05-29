@@ -22,20 +22,20 @@
                 <li id="nav-li"><a href="#">
                         <p>Лучшее</p>
                     </a></li>
-                <li id="nav-li"><a href="/saved_flats">
+                <li id="nav-li"><a href="save">
                         <p>Сохраненное</p>
                     </a></li>
-                <li id="nav-li"><a href="/about_us">
+                <li id="nav-li"><a href="about_us">
                         <p>О нас</p>
                     </a></li>
             </ul>
         </nav>
-        <div class="registration">
-            Регистрация
-        </div>
+        <a href=login>
+            <button class="reg-btn">Регистрация</button>
+        </a>
     </header>
     <main>
-        <h1 class="main_title">Тут находится ваша будущая квартира: </h1>
+        <h1 class="main_title">Ваши сохраненные квартиры: </h1>
         <div class="main_block">
             {% for flat in flats %}
             <div class="flat_card">

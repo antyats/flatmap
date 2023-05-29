@@ -123,8 +123,8 @@ header {
 
 .image {
     border-radius: 41px;
-    width: 55rem;
-    height: 30rem;
+    width: auto;
+    height: 25rem;
     position: relative;
     /*bottom: 10%;*/
     /*top: 20%;*/
