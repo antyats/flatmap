@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, url_for, request, redirect, session, abort, jsonify
 from authlib.integrations.flask_client import OAuth
 from constants import CITIES
@@ -110,7 +111,6 @@ def save():
     price = request.form.get('price')
     description = request.form.get('description')
     photos = request.form.getlist('photos[]')
-    
     result = add_liked_to_database(user_email, {
                                    "name": name, "price": price, "description": description, "photos": photos})
     return jsonify(result="Success")
@@ -119,6 +119,14 @@ def save():
 @app.route('/login')
 def registration():
     return render_template("registration.html", session=session.get("user"))
+
+# @app.route('/save')
+# def saved():
+#     return render_template("saved_flats.html")
+
+@app.route('/about_us')
+def info():
+    return render_template("about_us.html")
 
 
 @app.route('/saved_flats')
@@ -135,3 +143,4 @@ def about_us():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
