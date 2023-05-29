@@ -108,17 +108,19 @@ def flatpage():
 
 @app.route('/saved_flats', methods=['POST'])
 def savepage():
-    name = request.form['name']
-    photos = request.form.getlist('photos[]')
-    price = request.form['price']
-    description = request.form['description']
-    rooms = request.form['rooms']
-    space = request.form['space']
-    floor = request.form['floor']
-    link = request.form['link']
-    address = request.form['address']
-    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor, link=link, address=address)
-
+    if "users" in session:
+        name = request.form['name']
+        photos = request.form.getlist('photos[]')
+        price = request.form['price']
+        description = request.form['description']
+        rooms = request.form['rooms']
+        space = request.form['space']
+        floor = request.form['floor']
+        link = request.form['link']
+        address = request.form['address']
+        return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor, link=link, address=address)
+    else:
+        return render_template('registration.html', session=session.get('users'))
 
 @app.route('/save', methods=['POST'])
 def save():
