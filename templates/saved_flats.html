@@ -22,10 +22,10 @@
                 <li id="nav-li"><a href="#">
                         <p>Лучшее</p>
                     </a></li>
-                <li id="nav-li"><a href="saved_flats">
+                <li id="nav-li"><a href="/saved_flats">
                         <p>Сохраненное</p>
                     </a></li>
-                <li id="nav-li"><a href="about_us">
+                <li id="nav-li"><a href="/about_us">
                         <p>О нас</p>
                     </a></li>
             </ul>
@@ -42,6 +42,15 @@
                 <img src="{{ flat.photos[0] }}" alt="flat">
                 <div class="flat_card_description">
                     <form method="post" id="form-{{flat['index']}}">
+                        <input type="hidden" name="name" value="{{ flat.name }}">
+                        <input type="hidden" name="price" value="{{ flat.price }}">
+                        <input type="hidden" name="description" value="{{ flat.description }}">
+                        <input type="hidden" name="rooms" value="{{ flat.rooms }}">
+                        <input type="hidden" name="space" value="{{ flat.space }}">
+                        <input type="hidden" name="floor" value="{{ flat.floor }}">
+                        <input type="hidden" name="index" value="{{ flat.index }}">
+                        <input type="hidden" name="link" value="{{ flat.link }}">
+
                         {% for photo in flat['photos'] %}
                         <input type="hidden" name="photos[]" value="{{ photo }}">
                         {% endfor %}
