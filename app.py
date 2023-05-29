@@ -4,7 +4,7 @@ from authlib.integrations.flask_client import OAuth
 from constants import CITIES
 from parsers import find_flats_cian, find_flats
 from auth import appConf, TOKEN
-from firebase import add_liked_to_database, get_liked_from_database
+from firebase import add_liked_to_database, get_liked_from_database, user_creation
 
 app = Flask(__name__)
 
@@ -31,6 +31,8 @@ oauth.register(
 def googleCallback():
     token = oauth.FlatMap.authorize_access_token()
     session["user"] = token
+    user_email = session.get('user').get('userinfo').get('email')
+    user_creation(user_email)
     return redirect(url_for("registration"))
 
 
@@ -78,9 +80,9 @@ def main():
                 r.append(i + 1)
         for i in range(1):
             url_cian = f"https://www.cian.ru/cat.php?deal_type=sale&engine_version=2&offer_type=flat&p={i}&region=1&room1={one_room}&room2={two_rooms}&room3={three_rooms}&room4={four_rooms}&maxprice={max_price}&minprice={min_price}&region={city}"
-            url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&category_id=2&param[1943]=Продам&param[1945]={max(r)}"
+            # url_other = f"https://ads-api.ru/main/api?user=x545275@gmail.com&token={TOKEN}&city={request.form.get('location')}&price1={min_price}&price2={max_price}&category_id=2&param[1943]=Продам&param[1945]={max(r)}"
             flats += find_flats_cian(url_cian)
-            flats += find_flats(url_other)
+            # flats += find_flats(url_other)
 
         flats.sort(key=lambda x: x['model_prediction'], reverse=True)
 
@@ -130,7 +132,7 @@ def info():
 def saved():
     user_email = session.get('user').get('userinfo').get('email')
     flats = get_liked_from_database(user_email)
-    return render_template("saved_flats.html", flats=flats[0])
+    return render_template("saved_flats.html", flats=flats)
 
 
 @app.route('/about_us')

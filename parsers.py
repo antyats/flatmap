@@ -12,8 +12,9 @@ model = None
 with open('model.pickle', 'rb') as f:
     model = pickle.load(f)
 
-
+i = 0
 def find_flats_cian(url):
+    global i
     flats = []
 
     cian_html = requests.get(url).text
@@ -93,13 +94,15 @@ def find_flats_cian(url):
                         })
                     break
 
-        for i in range(len(flats)):
-            flats[i]['index'] = i
+        for _ in range(len(flats)):
+            flats[_]['index'] = i
+            i += 1
 
     return flats
 
 
 def find_flats(url):
+    global i
     script = requests.get(url)
     script = script.text
     data = json.loads(script)
@@ -123,4 +126,9 @@ def find_flats(url):
             "rooms": offer['params']['Количество комнат'],
             "model_prediction": model_prediction
         })
+
+    for _ in range(len(flats)):
+        flats[_]['index'] = i
+        i += 1
+
     return flats

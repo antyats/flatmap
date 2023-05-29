@@ -7,25 +7,21 @@ cred = credentials.Certificate(
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
+def user_creation(userid):
+    doc_ref = db.collection('users').document(userid)
+    if not doc_ref.get().to_dict():
+        data = {'liked_flats': []}
+        doc_ref.set(data)
+    return
+
 
 def add_liked_to_database(userid, liked_info):
     doc_ref = db.collection('users').document(userid)
     doc = doc_ref.get()
-    info_list = []
 
-    if doc.exists:
-        for key in doc.to_dict():
-            info_list = doc.to_dict().get(key)
-            info_list.append(doc.to_dict().get(key))
-    else:
-        data = {'liked_list': []}
-        doc_ref.set(data)
-
-    info_list.pop()
-    info_list = info_list[0]
+    info_list = doc.to_dict().get('liked_flats')
     # Добавьте новые данные в массив
     info_list.append(liked_info)
-
     # Обновите документ пользователя, включая новые данные
     doc_ref.update({'liked_flats': info_list})
 
@@ -37,9 +33,6 @@ def get_liked_from_database(userid):
     doc_ref = db.collection('users').document(userid)
     doc = doc_ref.get()
 
-    flats = []
-    for key in doc.to_dict():
-        flats.append(doc.to_dict().get(key))
+    flats = doc.to_dict().get('liked_flats')
 
-    flats.pop()
     return flats
