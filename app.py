@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, url_for, request, redirect, session, abort, jsonify
 from authlib.integrations.flask_client import OAuth
 from constants import CITIES
@@ -142,3 +143,4 @@ def about_us():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
