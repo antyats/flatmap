@@ -69,8 +69,8 @@ def main():
         max_price = int(request.form.get("max_price")) if request.form.get(
             "max_price") != "" else "1000000000"
 
-        city = CITIESMAIN[request.form.get("location")] if request.form.get(
-            "location") != "" else ""
+        # city = CITIESMAIN[request.form.get("location")] if request.form.get(
+        #     "location") != "" else ""
 
         flats = []
         rooms = [one_room, two_rooms, three_rooms, four_rooms]
