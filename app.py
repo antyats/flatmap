@@ -108,7 +108,7 @@ def flatpage():
 
 @app.route('/saved_flats', methods=['POST'])
 def savepage():
-    if "users" in session:
+    if "user" in session:
         name = request.form['name']
         photos = request.form.getlist('photos[]')
         price = request.form['price']
@@ -120,7 +120,7 @@ def savepage():
         address = request.form['address']
         return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor, link=link, address=address)
     else:
-        return render_template('registration.html', session=session.get('users'))
+        return render_template('registration.html', session=session.get('user'))
 
 @app.route('/save', methods=['POST'])
 def save():
