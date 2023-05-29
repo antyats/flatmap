@@ -98,7 +98,8 @@ def flatpage():
     rooms = request.form['rooms']
     space = request.form['space']
     floor = request.form['floor']
-    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor)
+    link = request.form['link']
+    return render_template('flat_page.html', name=name, price=price, description=description, photos=photos, rooms=rooms, space=space, floor=floor, link=link)
 
 
 @app.route('/save', methods=['POST'])
@@ -109,6 +110,7 @@ def save():
     price = request.form.get('price')
     description = request.form.get('description')
     photos = request.form.getlist('photos[]')
+    
     result = add_liked_to_database(user_email, {
                                    "name": name, "price": price, "description": description, "photos": photos})
     return jsonify(result="Success")
